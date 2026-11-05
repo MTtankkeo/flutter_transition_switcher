@@ -5,7 +5,7 @@ A Flutter package for customizable transition animations between widgets and sli
 It supports separate entrance and exit durations and curves, custom layouts, and sliver transitions.
 
 ```dart
-import 'package:transitions/transitions.dart';
+import 'package:transition_switcher/transition_switcher.dart';
 
 TransitionSwitcher(
   switchInDuration: const .new(milliseconds: 500),

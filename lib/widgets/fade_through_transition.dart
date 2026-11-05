@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:transitions/transitions.dart';
+import 'package:transition_switcher/transition_switcher.dart';
 
 /// Fades a child in and out over separate intervals of its transition animations.
 class FadeThroughTransition extends StatelessWidget {

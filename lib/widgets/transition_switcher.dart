@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:transitions/src/transition_entry.dart';
+import 'package:transition_switcher/src/transition_entry.dart';
 
 /// Signature for a function that builds a transition for
 /// a child of [TransitionSwitcher].

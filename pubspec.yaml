@@ -1,8 +1,8 @@
-name: transitions
+name: transition_switcher
 description: A Flutter package for customizable transition animations with support for both widgets and slivers.
 version: 0.1.0
 publisher: ttankkeo112@gmail.com
-repository: https://github.com/MTtankkeo/flutter_transitions
+repository: https://github.com/MTtankkeo/flutter_transition_switcher
 topics:
   - animation
   - transition

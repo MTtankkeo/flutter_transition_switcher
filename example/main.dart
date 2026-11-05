@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transitions/transitions.dart';
+import 'package:transition_switcher/transition_switcher.dart';
 
 void main() {
   runApp(const MainApp());

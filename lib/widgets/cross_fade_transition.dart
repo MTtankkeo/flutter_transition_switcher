@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:transitions/transitions.dart';
+import 'package:transition_switcher/transition_switcher.dart';
 
 /// Combines entrance opacity with inverse exit opacity into a single animation.
 class _CrossFadeAnimation extends CompoundAnimation<double> {
