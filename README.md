@@ -1,6 +1,6 @@
 # Introduction
 
-A Flutter package for switching between widgets with cross-fade and fade-through transitions.
+A Flutter package for customizable transition animations between widgets and slivers.
 
 It supports separate entrance and exit durations and curves, custom layouts, and sliver transitions.
 
