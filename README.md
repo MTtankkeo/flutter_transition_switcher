@@ -26,3 +26,4 @@ Each child must have a non-null key. Changing its type or key starts a new trans
 | ---- | ----------- | ------ |
 | CrossFadeTransition | Fades the outgoing child out while fading the incoming child in. | 🟢 |
 | FadeThroughTransition | Fades the outgoing child out before fading the incoming child in. | 🟢 |
+| ScaleFadeTransition | Combines fading with configurable entrance and exit scales. | 🟢 |

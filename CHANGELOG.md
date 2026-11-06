@@ -6,3 +6,7 @@
 
 - Add `TransitionStack` with configurable alignment and sizing based on the last child or the minimum or maximum dimensions across all children.
 - Use `TransitionStack` as the default layout for `TransitionSwitcher`, so outgoing children no longer affect its size.
+
+## 0.3.0
+
+- Add `ScaleFadeTransition` and `SliverScaleFadeTransition` with configurable entrance and exit scales and animation intervals.
