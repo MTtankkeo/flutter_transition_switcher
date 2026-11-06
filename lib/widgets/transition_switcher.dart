@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:transition_switcher/src/transition_entry.dart';
+import 'package:transition_switcher/transition_switcher.dart';
 
 /// Signature for a function that builds a transition for
 /// a child of [TransitionSwitcher].
@@ -60,7 +61,7 @@ class TransitionSwitcher extends StatefulWidget {
 
   /// Places outgoing children below the current child.
   static Widget defaultLayoutBuilder(List<Widget> entries) {
-    return Stack(alignment: .center, children: entries);
+    return TransitionStack(alignment: .center, children: entries);
   }
 
   @override
