@@ -18,7 +18,7 @@ TransitionSwitcher(
 );
 ```
 
-Each child must have a non-null key. Changing its type or key starts a new transition; matching children update without a transition.
+Each child must have a non-null key. Changing its type or key starts a new transition. matching children update without a transition.
 
 ## Supported Transitions
 
