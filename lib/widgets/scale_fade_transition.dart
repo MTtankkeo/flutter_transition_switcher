@@ -4,7 +4,10 @@ import 'package:transition_switcher/transition_switcher.dart';
 
 /// Combines the entrance and exit scales into a single animation.
 class _ScaleFadeAnimation extends CompoundAnimation<double> {
-  _ScaleFadeAnimation({required super.first, required super.next});
+  _ScaleFadeAnimation({
+    required super.first,
+    required super.next,
+  });
 
   @override
   double get value => first.value * next.value;

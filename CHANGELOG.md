@@ -10,3 +10,7 @@
 ## 0.3.0
 
 - Add `ScaleFadeTransition` and `SliverScaleFadeTransition` with configurable entrance and exit scales and animation intervals.
+
+## 0.4.0
+
+- Add `SlideFadeTransition` and `SliverSlideFadeTransition` with configurable entrance and exit offsets and animation intervals.

@@ -10,6 +10,7 @@ class SliverTransform extends SingleChildRenderObjectWidget {
   }) : super(child: sliver);
 
   /// The animation that supplies the paint transformation matrix.
+  /// Translation components are fractions of the sliver painted dimensions.
   final Animation<Matrix4> transform;
 
   @override
@@ -19,19 +20,19 @@ class SliverTransform extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(BuildContext context, RenderSliverTransform renderObject) {
-    renderObject.transform = transform;
+    renderObject.matrix = transform;
   }
 }
 
 /// Applies a paint transform while preserving the child sliver geometry.
 class RenderSliverTransform extends RenderProxySliver {
-  RenderSliverTransform(this._transform);
+  RenderSliverTransform(this._matrix);
 
   /// The animation driving the paint transform, observed while attached.
-  Animation<Matrix4> _transform;
+  Animation<Matrix4> _matrix;
 
   /// The current transformation matrix.
-  Matrix4 get transform => _transform.value;
+  Matrix4 get matrix => _matrix.value;
 
   /// The center of the painted region, used as the transform origin.
   Offset get center => switch (constraints.axis) {
@@ -45,26 +46,38 @@ class RenderSliverTransform extends RenderProxySliver {
     ),
   };
 
-  /// Applies the matrix around the painted center rather than the origin.
-  Matrix4 get effectiveTransform {
-    return .translationValues(center.dx, center.dy, 0)
-      ..multiply(transform)
-      ..multiply(.translationValues(-center.dx, -center.dy, 0));
-  }
-
   /// Replaces the animation and moves the listener to the new instance.
-  set transform(Animation<Matrix4> value) {
-    if (identical(_transform, value)) return;
+  set matrix(Animation<Matrix4> value) {
+    if (identical(_matrix, value)) return;
     if (attached) {
-      _transform.removeListener(updateTransform);
+      _matrix.removeListener(updateTransform);
     }
 
-    _transform = value;
+    _matrix = value;
     if (attached) {
-      _transform.addListener(updateTransform);
+      _matrix.addListener(updateTransform);
     }
 
     updateTransform();
+  }
+
+  /// Applies the matrix around the painted center rather than the origin.
+  Matrix4 get transform {
+    final copyMatrix = Matrix4.copy(matrix);
+    final size = switch (constraints.axis) {
+      .vertical => Size(constraints.crossAxisExtent, geometry!.paintExtent),
+      .horizontal => Size(geometry!.paintExtent, constraints.crossAxisExtent),
+    };
+
+    copyMatrix.setTranslationRaw(
+      copyMatrix.storage[12] * size.width,
+      copyMatrix.storage[13] * size.height,
+      copyMatrix.storage[14],
+    );
+
+    return .translationValues(center.dx, center.dy, 0)
+      ..multiply(copyMatrix)
+      ..multiply(.translationValues(-center.dx, -center.dy, 0));
   }
 
   /// Updates painting and semantics without requesting layout.
@@ -79,12 +92,12 @@ class RenderSliverTransform extends RenderProxySliver {
   @override
   void attach(PipelineOwner owner) {
     super.attach(owner);
-    _transform.addListener(updateTransform);
+    _matrix.addListener(updateTransform);
   }
 
   @override
   void detach() {
-    _transform.removeListener(updateTransform);
+    _matrix.removeListener(updateTransform);
     super.detach();
   }
 
@@ -106,7 +119,7 @@ class RenderSliverTransform extends RenderProxySliver {
     _layer.layer = context.pushTransform(
       needsCompositing,
       offset,
-      effectiveTransform,
+      transform,
       (context, offset) => context.paintChild(child!, offset),
       oldLayer: _layer.layer,
     );
@@ -114,6 +127,6 @@ class RenderSliverTransform extends RenderProxySliver {
 
   @override
   void applyPaintTransform(RenderObject child, Matrix4 transform) {
-    super.applyPaintTransform(child, transform..multiply(effectiveTransform));
+    super.applyPaintTransform(child, transform..multiply(this.transform));
   }
 }
