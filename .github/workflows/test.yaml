@@ -28,3 +28,6 @@ jobs:
 
       - name: Check package score
         run: dart pub global run pana --exit-code-threshold 0 .
+
+      - name: Run Unit & Widget Tests
+        run: flutter test .
